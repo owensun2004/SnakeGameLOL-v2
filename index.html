@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game - Playing</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="playing">
+      <button id="back" onclick="window.location.href = 'home.html';">
+        <i class="fa fa-angle-double-left"></i>&#160Back
+      </button>
+      <button id="stats" onclick="openPopUp()">Open End Game Stats</button>
+      <div class="popup" id="popup">
+        <div class="header">
+          <h2 id="tit">Game Over !</h2>
+          <button id="close-but" onclick="XclosePopUp()">&times</button>
+        </div>
+        <div class="scoreboard">
+          <p>Score:</p>
+          <p id="point2"></p>
+        </div>
+        <div class="footer">
+          <button id="leader">
+            Submit to <br />Leaderboards &#160<i class="fa fa-bar-chart"></i>
+          </button>
+          <button class="restart" onclick="reset()">
+            Retry &#160<i class="fa fa-repeat"></i>
+          </button>
+        </div>
+      </div>
+      <canvas id="board"></canvas>
+      <p id="scoretitle">Score:</p>
+      <p id="point"></p>
+    </div>
+    <div id="overlay"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
