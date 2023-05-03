@@ -1,3 +1,4 @@
+
 var blockSize = 25;
 var total_row = 17; //total row number
 var total_col = 17; //total column number
@@ -20,9 +21,20 @@ var gameOver = false;
 
 var game;
 
+
 var score=0;
 
 var popup=document.getElementById("popup");
+
+var countleft=0;
+var countright=0;
+var countup=0;
+var countdown=0;
+var total=0;
+//import { snakeSpeed } from "./setscript.js";
+
+
+
  
 window.onload = function () {
     // Set board height and width
@@ -35,10 +47,15 @@ window.onload = function () {
     placeFood();
     document.addEventListener("keyup", changeDirection);  //for movements
     // Set snake speed
-    game = setInterval(update, 500);
+    game = setInterval(update, 100);
 }
 
 function reset(){
+    countleft=0;
+    countright=0;
+    countup=0;
+    countdown=0;
+    total=0;
     
     speedX = 0;  //speed of snake in x coordinate.
     speedY = 0;  //speed of snake in Y coordinate.
@@ -50,16 +67,22 @@ function reset(){
     document.querySelector("#point").innerHTML = score;
     clearInterval(game);
     placeFood();
-    game=setInterval(update, 500);
+    game=setInterval(update, 100);
     closePopUp();
     
 }
  
 function update() {
     if (gameOver) {
+        document.querySelector("#dist").innerHTML="Total distance traveled: "+total;
+        document.querySelector("#l").innerHTML="Total left arrow pressed: "+countleft;
+        document.querySelector("#r").innerHTML="Total right arrow pressed: "+countright;
+        document.querySelector("#d").innerHTML="Total down arrow pressed: "+countdown;
+        document.querySelector("#u").innerHTML="Total up arrow pressed: "+countup;
         clearInterval(game);
         return;
     }
+    total++;
  
     // Background of a Game
     context.fillStyle = "grey";
@@ -123,21 +146,25 @@ function changeDirection(e) {
         // snake will not move in the opposite direction
         speedX = 0;
         speedY = -1;
+        countup++;
     }
     else if (e.code == "ArrowDown" && speedY != -1) {
         //If down arrow key pressed
         speedX = 0;
         speedY = 1;
+        countdown++;
     }
     else if (e.code == "ArrowLeft" && speedX != 1) {
         //If left arrow key pressed
         speedX = -1;
         speedY = 0;
+        countleft++;
     }
     else if (e.code == "ArrowRight" && speedX != -1) {
         //If Right arrow key pressed
         speedX = 1;
         speedY = 0;
+        countright++;
     }
 }
 
@@ -170,3 +197,20 @@ function XclosePopUp(){
     overlay.classList.remove('active');
     bu.classList.add('act');
 }
+
+function expand(){
+    var dot=document.getElementById("dots");
+    var more=document.getElementById("more");
+    var expbut=document.getElementById("showmore");
+
+    if(dot.style.display === "none"){
+        expbut.innerHTML="Show More";
+        more.style.display="none";
+        dot.style.display="inline";
+    }else{
+        expbut.innerHTML="Show Less";
+        more.style.display="inline";
+        dot.style.display="none";
+    }
+}
+

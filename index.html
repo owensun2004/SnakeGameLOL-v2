@@ -26,6 +26,22 @@
           <p>Score:</p>
           <p id="point2"></p>
         </div>
+        <div id="somestat">
+          <p id="statTitle">More Stats:
+            <span id="dots">...</span>
+            <div id="statistics">
+            <span id="more">
+              <p id="dist"></p>
+              <p id="l"></p>
+              <p id="r"></p>
+              <p id="u"></p>
+              <p id="d"></p>
+            </span>
+            </div>
+          </p>
+          <button onclick="expand()" id="showmore">Show More</button>
+        </div>
+        
         <div class="footer">
           <button id="leader">
             Submit to <br />Leaderboards &#160<i class="fa fa-bar-chart"></i>
@@ -36,10 +52,12 @@
         </div>
       </div>
       <canvas id="board"></canvas>
-      <p id="scoretitle">Score:</p>
-      <p id="point"></p>
+      <div id="scoring"><p id="scoretitle">Score:</p>
+        <p id="point"></p></div>
+      
     </div>
     <div id="overlay"></div>
     <script src="script.js"></script>
+    
   </body>
 </html>
