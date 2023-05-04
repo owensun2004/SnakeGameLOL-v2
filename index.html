@@ -16,14 +16,15 @@
       <button id="back" onclick="window.location.href = 'home.html';">
         <i class="fa fa-angle-double-left"></i>&#160Back
       </button>
-      <button id="stats" onclick="openPopUp()">Open End Game Stats</button>
+      <button id="pause" onclick="pause()">Pause<i class="fa fa-pause"></i></button>
+      <button id="stats" onclick="openPopUp()">Open End Game Stats <i class="fa fa-file-o"></i></button>
       <div class="popup" id="popup">
         <div class="header">
           <h2 id="tit">Game Over !</h2>
           <button id="close-but" onclick="XclosePopUp()">&times</button>
         </div>
         <div class="scoreboard">
-          <p>Score:</p>
+          <p id="skore">Final Score:</p>
           <p id="point2"></p>
         </div>
         <div id="somestat">
@@ -43,7 +44,7 @@
         </div>
         
         <div class="footer">
-          <button id="leader">
+          <button id="leader" onclick="stl()">
             Submit to <br />Leaderboards &#160<i class="fa fa-bar-chart"></i>
           </button>
           <button class="restart" onclick="reset()">

@@ -25,6 +25,10 @@ var game;
 var score=0;
 
 var popup=document.getElementById("popup");
+var title=document.getElementById("tit");
+var popupScore=document.getElementById("skore");
+var submitLeaderBoard=document.getElementById("leader");
+var pauseBut=document.getElementById("pause");
 
 var countleft=0;
 var countright=0;
@@ -33,7 +37,7 @@ var countdown=0;
 var total=0;
 //import { snakeSpeed } from "./setscript.js";
 
-
+var isPause=0;
 
  
 window.onload = function () {
@@ -50,7 +54,30 @@ window.onload = function () {
     game = setInterval(update, 100);
 }
 
+function pause(){
+    isPause=1;
+    title.innerHTML="Game Paused";
+    popupScore.innerHTML="Current Score: ";
+    submitLeaderBoard.innerHTML="Continue Playing";
+    submitLeaderBoard.classList.add('cont');
+    displayScore();
+    document.querySelector("#point2").innerHTML = score;
+    openPopUp();
+
+}
+
+function resetWords(){
+    title.innerHTML="Game Over !";
+    popupScore.innerHTML="Final Score:";
+    submitLeaderBoard.innerHTML="Submit to Leaderboards";
+    submitLeaderBoard.classList.remove('cont');
+}
+
 function reset(){
+    isPause=0;
+    resetWords();
+    pauseBut.classList.remove('acti');
+
     countleft=0;
     countright=0;
     countup=0;
@@ -71,18 +98,21 @@ function reset(){
     closePopUp();
     
 }
- 
-function update() {
-    if (gameOver) {
-        document.querySelector("#dist").innerHTML="Total distance traveled: "+total;
+
+function displayScore(){
+    document.querySelector("#dist").innerHTML="Total distance traveled: "+total;
         document.querySelector("#l").innerHTML="Total left arrow pressed: "+countleft;
         document.querySelector("#r").innerHTML="Total right arrow pressed: "+countright;
         document.querySelector("#d").innerHTML="Total down arrow pressed: "+countdown;
         document.querySelector("#u").innerHTML="Total up arrow pressed: "+countup;
+}
+ 
+function update() {
+    if (gameOver||isPause==1) {
         clearInterval(game);
         return;
     }
-    total++;
+    total+=1;
  
     // Background of a Game
     context.fillStyle = "grey";
@@ -122,6 +152,8 @@ function update() {
          
         // Out of bound condition
         gameOver = true;
+        pauseBut.classList.add('acti');
+        displayScore();
         document.querySelector("#point2").innerHTML = score;
         openPopUp();
         //alert("Game Over\nScore: "+ score);
@@ -132,6 +164,8 @@ function update() {
              
             // Snake eats own body
             gameOver = true;
+            pauseBut.classList.add('acti');
+            displayScore();
             document.querySelector("#point2").innerHTML = score;
             openPopUp();
             //alert("Game Over\nScore: "+ score);
@@ -165,6 +199,11 @@ function changeDirection(e) {
         speedX = 1;
         speedY = 0;
         countright++;
+    }else if(e.code=="Escape"){
+        if(isPause==0&&gameOver==false){
+            pause();
+        }
+        
     }
 }
 
@@ -183,7 +222,10 @@ let bu=document.getElementById("stats");
 
 function openPopUp(){
     popup.classList.add("open-popup");
-    overlay.classList.add('active')
+    overlay.classList.add('active');
+    if(isPause==1){
+        clearInterval(game);
+    }
 }
 
 function closePopUp(){
@@ -195,7 +237,23 @@ function closePopUp(){
 function XclosePopUp(){
     popup.classList.remove("open-popup");
     overlay.classList.remove('active');
-    bu.classList.add('act');
+    if(isPause!=1){
+        bu.classList.add('act');
+    }else{
+        isPause=0;
+        game=setInterval(update, 100);
+        resetWords();
+    }
+    
+}
+
+function stl(){
+    if(isPause==1){
+        XclosePopUp();
+        return;
+    }else{
+        console.log("Submitting to leaderboards..");
+    }
 }
 
 function expand(){

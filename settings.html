@@ -20,9 +20,9 @@
     <p>Change Snake Speed</p>
 
     <div class="slidecontainer">
-        <input type="range" min="500" max="950" value="700" class="slider" id="myRange">
+        <input type="range" oninput="changeSpeed()" min="500" max="950" value="700" class="slider" id="myRange">
     <p>Speed: <span id="demo"></span></p>
     </div>
-    <script type="module" src="setscript.js"></script>
+    <script src="setscript.js"></script>
   </body>
 </html>
